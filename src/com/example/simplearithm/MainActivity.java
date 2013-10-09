@@ -15,8 +15,8 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements OnClickListener {
 	private static final int MAX_LENGTH_OF_ANSWER = 5;
 	
-	private static final String CALCULATOR_PACKAGE_NAME = "com.android.calculator2";
-	private static final String CALCULATOR_CLASS_NAME = "com.android.calculator2.Calculator";
+	//private static final String CALCULATOR_PACKAGE_NAME = "com.android.calculator2";
+	//private static final String CALCULATOR_CLASS_NAME = "com.android.calculator2.Calculator";
 
 	private int expressionResult = 0;
 	
@@ -112,7 +112,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			case R.id.button_update:
 				generateExpression();
 				
-				launchCalculator();
+				//launchCalculator();
 				
 				break;
 		}
@@ -171,7 +171,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		return (int) ((Math.random() * maxValue) + 1);
 	}
 	
-	public void launchCalculator() {
+	/*public void launchCalculator() {
 		Intent intent = new Intent();
 		intent.setAction(Intent.ACTION_MAIN);
 		intent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -181,5 +181,5 @@ public class MainActivity extends Activity implements OnClickListener {
 		} catch (ActivityNotFoundException noSuchActivity) {
 			// handle exception where calculator intent filter is not registered
 		}
-	}
+	}*/
 }
