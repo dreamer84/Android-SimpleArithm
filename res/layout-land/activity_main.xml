@@ -46,6 +46,7 @@
 	        android:layout_height="wrap_content"
 	        android:text="35"
 	        android:textSize="80sp" />
+
 	    <Button
 	        android:id="@+id/button_clear_answer"
 	        android:layout_width="wrap_content"

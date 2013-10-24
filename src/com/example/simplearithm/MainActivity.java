@@ -36,7 +36,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button buttonPicker8;
 	private Button buttonPicker9;
 	private Button buttonReset;
-	private Button buttonClearAnswer;
+	private Button buttonClearAnswerLeft;
+	private Button buttonClearAnswerRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +73,10 @@ public class MainActivity extends Activity implements OnClickListener {
         buttonReset = (Button) findViewById(R.id.button_update);
         buttonReset.setOnClickListener(this);        
         
-        buttonClearAnswer = (Button) findViewById(R.id.button_clear_answer);
-        buttonClearAnswer.setOnClickListener(this);
+        buttonClearAnswerLeft = (Button) findViewById(R.id.button_clear_answer_left);
+        buttonClearAnswerLeft.setOnClickListener(this);
+        buttonClearAnswerRight = (Button) findViewById(R.id.button_clear_answer_right);
+        buttonClearAnswerRight.setOnClickListener(this);
         
         generateExpression();
     }
@@ -102,7 +105,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				textAnswerNumber.setText(textAnswerNumber.getText() + v.getTag().toString());
 				testAnswer();
 				break;
-			case R.id.button_clear_answer:
+			case R.id.button_clear_answer_left:
+			case R.id.button_clear_answer_right:
 				int textAnswerNumberLength = textAnswerNumber.getText().length();
 				if (textAnswerNumberLength <= 0) break;
 				textAnswerNumber.setText(textAnswerNumber.getText().subSequence(0, textAnswerNumberLength-1));

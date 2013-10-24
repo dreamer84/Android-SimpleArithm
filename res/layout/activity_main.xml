@@ -54,14 +54,23 @@
         android:layout_height="wrap_content"
         android:gravity="center" >
         
+	    <Button
+	        android:id="@+id/button_clear_answer_left"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="x" />
+	    
 	    <TextView
 	        android:id="@+id/text_answer_number"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
 	        android:text="35"
+	        android:gravity="center"
 	        android:textSize="80sp" />
+
 	    <Button
-	        android:id="@+id/button_clear_answer"
+	        android:id="@+id/button_clear_answer_right"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="x" />
