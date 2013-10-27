@@ -12,9 +12,6 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements OnClickListener {
 	private static final int MAX_LENGTH_OF_ANSWER = 5;
 	
-	//private static final String CALCULATOR_PACKAGE_NAME = "com.android.calculator2";
-	//private static final String CALCULATOR_CLASS_NAME = "com.android.calculator2.Calculator";
-
 	private int expressionResult = 0;
 	
 	private TextView textAnswerNumber;
@@ -112,9 +109,6 @@ public class MainActivity extends Activity implements OnClickListener {
 				break;
 			case R.id.button_update:
 				generateExpression();
-				
-				//launchCalculator();
-				
 				break;
 		}
 	}
@@ -123,7 +117,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		textAnswerNumber.setTextColor(Color.rgb(185, 0, 25));
 		int userAnswer = Integer.parseInt((String) textAnswerNumber.getText());
 		if (userAnswer == expressionResult) {
-			//Toast.makeText(this, "RIGHT", Toast.LENGTH_SHORT).show();
 			textAnswerNumber.setTextColor(Color.rgb(5, 135, 0));
 		}
 	}
@@ -135,7 +128,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		char operationSimbol = '?';
 		int result = 0;
 		
-		//Log.v("SimpleArithm", operation + "");
 		switch(operationNumber) {
 			case 0:
 				operationSimbol = '+';
@@ -171,16 +163,4 @@ public class MainActivity extends Activity implements OnClickListener {
 	public int generateRandomNumber(int maxValue) {
 		return (int) ((Math.random() * maxValue) + 1);
 	}
-	
-	/*public void launchCalculator() {
-		Intent intent = new Intent();
-		intent.setAction(Intent.ACTION_MAIN);
-		intent.addCategory(Intent.CATEGORY_LAUNCHER);
-		intent.setComponent(new ComponentName(CALCULATOR_PACKAGE_NAME, CALCULATOR_CLASS_NAME));
-		try {
-			this.startActivity(intent);
-		} catch (ActivityNotFoundException noSuchActivity) {
-			// handle exception where calculator intent filter is not registered
-		}
-	}*/
 }
