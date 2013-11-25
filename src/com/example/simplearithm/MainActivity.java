@@ -38,10 +38,10 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        textAnswerNumber = (TextView) findViewById(R.id.text_answer_number);
         textFirstNumber = (TextView) findViewById(R.id.text_first_number);
         textSecondNumber = (TextView) findViewById(R.id.text_second_number);
         textOperation = (TextView) findViewById(R.id.text_operation);
+        textAnswerNumber = (TextView) findViewById(R.id.text_answer_number);
         
         buttonPicker0 = (Button) findViewById(R.id.button_picker_0);
         buttonPicker0.setOnClickListener(this);
@@ -77,7 +77,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -95,14 +94,18 @@ public class MainActivity extends Activity implements OnClickListener {
 			case R.id.button_picker_7:
 			case R.id.button_picker_8:
 			case R.id.button_picker_9:
-				if (textAnswerNumber.getText().length() >= MAX_LENGTH_OF_ANSWER) break;
+				if (textAnswerNumber.getText().length() >= MAX_LENGTH_OF_ANSWER) {
+					break;
+				}
 				textAnswerNumber.setText(textAnswerNumber.getText() + v.getTag().toString());
 				testAnswer();
 				break;
 			case R.id.button_clear_answer_left:
 			case R.id.button_clear_answer_right:
 				int textAnswerNumberLength = textAnswerNumber.getText().length();
-				if (textAnswerNumberLength <= 0) break;
+				if (textAnswerNumberLength <= 0) {
+					break;
+				}
 				textAnswerNumber.setText(textAnswerNumber.getText().subSequence(0, textAnswerNumberLength-1));
 				textAnswerNumberLength--;
 				if (textAnswerNumberLength > 0) testAnswer();
