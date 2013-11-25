@@ -84,11 +84,19 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+		if (outState == null) { return; }
+		outState.putString("textFirstNumber", textFirstNumber.getText().toString());
+		outState.putString("textSecondNumber", textSecondNumber.getText().toString());
+		outState.putString("textOperation", textOperation.getText().toString());
 	}
 	
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
+		if (savedInstanceState == null) { return; }
+		textFirstNumber.setText(savedInstanceState.getString("textFirstNumber"));
+		textSecondNumber.setText(savedInstanceState.getString("textSecondNumber"));
+		textOperation.setText(savedInstanceState.getString("textOperation"));
 	}
 
 	@Override
