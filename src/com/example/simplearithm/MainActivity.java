@@ -3,6 +3,7 @@ package com.example.simplearithm;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,9 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
-	private static final int MAX_LENGTH_OF_ANSWER = 5;
+	public static final String TAG = "com.example.simplearithm.MainActivity";
+	public static final int MAX_LENGTH_OF_ANSWER = 5;
 	
-	private int expressionResult = 0;
+	private Integer expressionResult = null;
 	
 	private TextView textAnswerNumber;
 	private TextView textFirstNumber;
@@ -88,6 +90,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		outState.putString("textFirstNumber", textFirstNumber.getText().toString());
 		outState.putString("textSecondNumber", textSecondNumber.getText().toString());
 		outState.putString("textOperation", textOperation.getText().toString());
+		outState.putString("expressionResult", expressionResult.toString());
 	}
 	
 	@Override
@@ -97,6 +100,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		textFirstNumber.setText(savedInstanceState.getString("textFirstNumber"));
 		textSecondNumber.setText(savedInstanceState.getString("textSecondNumber"));
 		textOperation.setText(savedInstanceState.getString("textOperation"));
+		expressionResult = Integer.valueOf(savedInstanceState.getString("expressionResult"));
 	}
 
 	@Override
@@ -135,9 +139,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 	
 	public void testAnswer() {
+		Log.d(TAG, "expressionResult: " + expressionResult);
 		textAnswerNumber.setTextColor(Color.rgb(185, 0, 25));
 		int userAnswer = Integer.parseInt((String) textAnswerNumber.getText());
-		if (userAnswer == expressionResult) {
+		if ((expressionResult != null) && (userAnswer == expressionResult)) {
 			textAnswerNumber.setTextColor(Color.rgb(5, 135, 0));
 		}
 	}
