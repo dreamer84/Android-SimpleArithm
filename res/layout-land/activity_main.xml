@@ -64,13 +64,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <Button
-            android:id="@+id/button_picker_0"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:tag="0"
-            android:text="0" />
 
         <Button
             android:id="@+id/button_picker_1"
@@ -104,12 +97,6 @@
             android:tag="4"
             android:text="4" />
         
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
         <Button
             android:id="@+id/button_picker_5"
             android:layout_width="0dp"
@@ -117,6 +104,12 @@
             android:layout_weight="1"
             android:tag="5"
             android:text="5" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <Button
             android:id="@+id/button_picker_6"
@@ -149,7 +142,15 @@
             android:layout_weight="1"
             android:tag="9"
             android:text="9" />
-
+        
+        <Button
+            android:id="@+id/button_picker_0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:tag="0"
+            android:text="0" />
+        
     </LinearLayout>
     
     <Button
