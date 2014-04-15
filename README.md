@@ -1,7 +1,5 @@
 Android-SimpleArithm
 ====================
 
-Simple Android application.
-Just for testing, just for fun!
+The Android application for training your brain with simple arithmetic.
 
-The line for playing with git :) ???
