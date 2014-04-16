@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener {
 	public static final String TAG = "com.example.simplearithm.MainActivity";
@@ -138,13 +139,30 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 	
+	/**
+	 * Tests the user answer
+	 */
 	public void testAnswer() {
 		Log.d(TAG, "expressionResult: " + expressionResult);
+
+		// Sets text color to default
 		textAnswerNumber.setTextColor(Color.rgb(185, 0, 25));
-		int userAnswer = Integer.parseInt((String) textAnswerNumber.getText());
+
+		// Gets the user answer
+		String userAnswerAsString = (String) textAnswerNumber.getText();
+		int userAnswer = Integer.parseInt(userAnswerAsString);
+
+		// Checks the answer
+		// 1. The answers are equals => It's a RIGHT answer!
 		if ((expressionResult != null) && (userAnswer == expressionResult)) {
 			textAnswerNumber.setTextColor(Color.rgb(5, 135, 0));
+			Toast.makeText(this, "You're right!", Toast.LENGTH_SHORT).show();
+		// 2. They're not equal, but they have same number of digits => It's a WRONG answer!
+		} else if (userAnswerAsString.length() == expressionResult.toString().length()) {
+			Toast.makeText(this, "You're WRONG!", Toast.LENGTH_SHORT).show();
 		}
+
+		// TODO Stop the processing and remember the result
 	}
 	
 	public void generateExpression() {
