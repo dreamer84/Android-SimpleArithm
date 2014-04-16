@@ -160,7 +160,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				result = operandA + operandB;
 				break;
 			case 1:
-				operationSimbol = '-';
+				operationSimbol = '−';
 				if (operandB > operandA) {
 					int savedOperand = operandA;
 					operandA = operandB;
