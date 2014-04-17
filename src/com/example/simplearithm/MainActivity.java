@@ -135,6 +135,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				break;
 			case R.id.button_update:
 				generateExpression();
+				setButtonsEnabled(true);
 				break;
 		}
 	}
@@ -157,9 +158,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		if ((expressionResult != null) && (userAnswer == expressionResult)) {
 			textAnswerNumber.setTextColor(Color.rgb(5, 135, 0));
 			Toast.makeText(this, "You're right!", Toast.LENGTH_SHORT).show();
+			setButtonsEnabled(false);
 		// 2. They're not equal, but they have same number of digits => It's a WRONG answer!
 		} else if (userAnswerAsString.length() == expressionResult.toString().length()) {
 			Toast.makeText(this, "You're WRONG!", Toast.LENGTH_SHORT).show();
+			setButtonsEnabled(false);
 		}
 
 		// TODO Stop the processing and remember the result
@@ -206,5 +209,25 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	public int generateRandomNumber(int maxValue) {
 		return (int) ((Math.random() * maxValue) + 1);
+	}
+
+	/**
+	 * Sets the answer-input buttons enabled or disabled
+	 * 
+	 * @param enabled true or false
+	 */
+	public void setButtonsEnabled(boolean enabled) {
+		buttonPicker0.setEnabled(enabled);
+		buttonPicker1.setEnabled(enabled);
+		buttonPicker2.setEnabled(enabled);
+		buttonPicker3.setEnabled(enabled);
+		buttonPicker4.setEnabled(enabled);
+		buttonPicker5.setEnabled(enabled);
+		buttonPicker6.setEnabled(enabled);
+		buttonPicker7.setEnabled(enabled);
+		buttonPicker8.setEnabled(enabled);
+		buttonPicker9.setEnabled(enabled);
+		buttonClearAnswerLeft.setEnabled(enabled);
+		buttonClearAnswerRight.setEnabled(enabled);
 	}
 }
