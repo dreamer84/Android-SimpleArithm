@@ -161,7 +161,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			setButtonsEnabled(false);
 		// 2. They're not equal, but they have same number of digits => It's a WRONG answer!
 		} else if (userAnswerAsString.length() == expressionResult.toString().length()) {
-			Toast.makeText(this, "You're WRONG!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "The right answer is " + expressionResult, Toast.LENGTH_LONG).show();
 			setButtonsEnabled(false);
 		}
 
