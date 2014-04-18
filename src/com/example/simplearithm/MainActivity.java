@@ -2,6 +2,7 @@ package com.example.simplearithm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -18,9 +19,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	public static final String TAG = "com.example.simplearithm.MainActivity";
 	public static final int MAX_LENGTH_OF_ANSWER = 5;
 	
-	private Integer expressionResult = null;
+	private Integer expressionResult;
 	
-	private List<Boolean> attemptResultsList = new ArrayList<Boolean>();
+	private List<Boolean> attemptResultsList;
 
 	private TextView textAnswerNumber;
 	private TextView textFirstNumber;
@@ -46,6 +47,9 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        expressionResult = null;
+        attemptResultsList = new ArrayList<Boolean>();
+
         textFirstNumber = (TextView) findViewById(R.id.text_first_number);
         textSecondNumber = (TextView) findViewById(R.id.text_second_number);
         textOperation = (TextView) findViewById(R.id.text_operation);
@@ -93,20 +97,38 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		if (outState == null) { return; }
+
 		outState.putString("textFirstNumber", textFirstNumber.getText().toString());
 		outState.putString("textSecondNumber", textSecondNumber.getText().toString());
 		outState.putString("textOperation", textOperation.getText().toString());
 		outState.putString("expressionResult", expressionResult.toString());
+
+		// Saves the attempts
+		int attCount = attemptResultsList.size();
+		boolean[] attArray = new boolean[attCount];
+		int c = 0;
+		ListIterator<Boolean> li = attemptResultsList.listIterator(attCount);
+		while (li.hasPrevious()) {
+			attArray[c++] = li.previous();
+		}
+		outState.putBooleanArray("attemptResultsList", attArray);
 	}
 	
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		if (savedInstanceState == null) { return; }
+
 		textFirstNumber.setText(savedInstanceState.getString("textFirstNumber"));
 		textSecondNumber.setText(savedInstanceState.getString("textSecondNumber"));
 		textOperation.setText(savedInstanceState.getString("textOperation"));
 		expressionResult = Integer.valueOf(savedInstanceState.getString("expressionResult"));
+
+		// Restores the attempts
+		boolean[] attArray = savedInstanceState.getBooleanArray("attemptResultsList");
+		for (boolean b : attArray) {
+			attemptResultsList.add(b);
+		}
 	}
 
 	@Override
