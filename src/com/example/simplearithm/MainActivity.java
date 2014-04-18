@@ -1,5 +1,8 @@
 package com.example.simplearithm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +20,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	private Integer expressionResult = null;
 	
+	private List<Boolean> attemptResultsList = new ArrayList<Boolean>();
+
 	private TextView textAnswerNumber;
 	private TextView textFirstNumber;
 	private TextView textSecondNumber;
@@ -159,13 +164,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			textAnswerNumber.setTextColor(Color.rgb(5, 135, 0));
 			Toast.makeText(this, "You're right!", Toast.LENGTH_SHORT).show();
 			setButtonsEnabled(false);
+			attemptResultsList.add(true);
 		// 2. They're not equal, but they have same number of digits => It's a WRONG answer!
 		} else if (userAnswerAsString.length() == expressionResult.toString().length()) {
 			Toast.makeText(this, "The right answer is " + expressionResult, Toast.LENGTH_LONG).show();
 			setButtonsEnabled(false);
+			attemptResultsList.add(false);
 		}
 
-		// TODO Stop the processing and remember the result
+		Log.d(TAG, "attempts: " + attemptResultsList);
 	}
 	
 	public void generateExpression() {
