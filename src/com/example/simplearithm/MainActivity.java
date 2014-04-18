@@ -18,16 +18,16 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements OnClickListener {
 	public static final String TAG = "com.example.simplearithm.MainActivity";
 	public static final int MAX_LENGTH_OF_ANSWER = 5;
-	
+
 	private Integer expressionResult;
-	
+
 	private List<Boolean> attemptResultsList;
 
 	private TextView textAnswerNumber;
 	private TextView textFirstNumber;
 	private TextView textSecondNumber;
 	private TextView textOperation;
-	
+
 	private Button buttonPicker0;
 	private Button buttonPicker1;
 	private Button buttonPicker2;
@@ -42,64 +42,68 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button buttonClearAnswerLeft;
 	private Button buttonClearAnswerRight;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        
-        expressionResult = null;
-        attemptResultsList = new ArrayList<Boolean>();
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 
-        textFirstNumber = (TextView) findViewById(R.id.text_first_number);
-        textSecondNumber = (TextView) findViewById(R.id.text_second_number);
-        textOperation = (TextView) findViewById(R.id.text_operation);
-        textAnswerNumber = (TextView) findViewById(R.id.text_answer_number);
-        
-        buttonPicker0 = (Button) findViewById(R.id.button_picker_0);
-        buttonPicker0.setOnClickListener(this);
-        buttonPicker1 = (Button) findViewById(R.id.button_picker_1);
-        buttonPicker1.setOnClickListener(this);
-        buttonPicker2 = (Button) findViewById(R.id.button_picker_2);
-        buttonPicker2.setOnClickListener(this);
-        buttonPicker3 = (Button) findViewById(R.id.button_picker_3);
-        buttonPicker3.setOnClickListener(this);
-        buttonPicker4 = (Button) findViewById(R.id.button_picker_4);
-        buttonPicker4.setOnClickListener(this);
-        buttonPicker5 = (Button) findViewById(R.id.button_picker_5);
-        buttonPicker5.setOnClickListener(this);
-        buttonPicker6 = (Button) findViewById(R.id.button_picker_6);
-        buttonPicker6.setOnClickListener(this);
-        buttonPicker7 = (Button) findViewById(R.id.button_picker_7);
-        buttonPicker7.setOnClickListener(this);
-        buttonPicker8 = (Button) findViewById(R.id.button_picker_8);
-        buttonPicker8.setOnClickListener(this);
-        buttonPicker9 = (Button) findViewById(R.id.button_picker_9);
-        buttonPicker9.setOnClickListener(this);
-        
-        buttonReset = (Button) findViewById(R.id.button_update);
-        buttonReset.setOnClickListener(this);        
-        
-        buttonClearAnswerLeft = (Button) findViewById(R.id.button_clear_answer_left);
-        buttonClearAnswerLeft.setOnClickListener(this);
-        buttonClearAnswerRight = (Button) findViewById(R.id.button_clear_answer_right);
-        buttonClearAnswerRight.setOnClickListener(this);
-        
-        generateExpression();
-    }
+		expressionResult = null;
+		attemptResultsList = new ArrayList<Boolean>();
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    
+		textFirstNumber = (TextView) findViewById(R.id.text_first_number);
+		textSecondNumber = (TextView) findViewById(R.id.text_second_number);
+		textOperation = (TextView) findViewById(R.id.text_operation);
+		textAnswerNumber = (TextView) findViewById(R.id.text_answer_number);
+
+		buttonPicker0 = (Button) findViewById(R.id.button_picker_0);
+		buttonPicker0.setOnClickListener(this);
+		buttonPicker1 = (Button) findViewById(R.id.button_picker_1);
+		buttonPicker1.setOnClickListener(this);
+		buttonPicker2 = (Button) findViewById(R.id.button_picker_2);
+		buttonPicker2.setOnClickListener(this);
+		buttonPicker3 = (Button) findViewById(R.id.button_picker_3);
+		buttonPicker3.setOnClickListener(this);
+		buttonPicker4 = (Button) findViewById(R.id.button_picker_4);
+		buttonPicker4.setOnClickListener(this);
+		buttonPicker5 = (Button) findViewById(R.id.button_picker_5);
+		buttonPicker5.setOnClickListener(this);
+		buttonPicker6 = (Button) findViewById(R.id.button_picker_6);
+		buttonPicker6.setOnClickListener(this);
+		buttonPicker7 = (Button) findViewById(R.id.button_picker_7);
+		buttonPicker7.setOnClickListener(this);
+		buttonPicker8 = (Button) findViewById(R.id.button_picker_8);
+		buttonPicker8.setOnClickListener(this);
+		buttonPicker9 = (Button) findViewById(R.id.button_picker_9);
+		buttonPicker9.setOnClickListener(this);
+
+		buttonReset = (Button) findViewById(R.id.button_update);
+		buttonReset.setOnClickListener(this);
+
+		buttonClearAnswerLeft = (Button) findViewById(R.id.button_clear_answer_left);
+		buttonClearAnswerLeft.setOnClickListener(this);
+		buttonClearAnswerRight = (Button) findViewById(R.id.button_clear_answer_right);
+		buttonClearAnswerRight.setOnClickListener(this);
+
+		generateExpression();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		if (outState == null) { return; }
+		if (outState == null) {
+			return;
+		}
 
-		outState.putString("textFirstNumber", textFirstNumber.getText().toString());
-		outState.putString("textSecondNumber", textSecondNumber.getText().toString());
+		outState.putString("textFirstNumber", textFirstNumber.getText()
+				.toString());
+		outState.putString("textSecondNumber", textSecondNumber.getText()
+				.toString());
 		outState.putString("textOperation", textOperation.getText().toString());
 		outState.putString("expressionResult", expressionResult.toString());
 
@@ -113,19 +117,25 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 		outState.putBooleanArray("attemptResultsList", attArray);
 	}
-	
+
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
-		if (savedInstanceState == null) { return; }
+		if (savedInstanceState == null) {
+			return;
+		}
 
-		textFirstNumber.setText(savedInstanceState.getString("textFirstNumber"));
-		textSecondNumber.setText(savedInstanceState.getString("textSecondNumber"));
+		textFirstNumber
+				.setText(savedInstanceState.getString("textFirstNumber"));
+		textSecondNumber.setText(savedInstanceState
+				.getString("textSecondNumber"));
 		textOperation.setText(savedInstanceState.getString("textOperation"));
-		expressionResult = Integer.valueOf(savedInstanceState.getString("expressionResult"));
+		expressionResult = Integer.valueOf(savedInstanceState
+				.getString("expressionResult"));
 
 		// Restores the attempts
-		boolean[] attArray = savedInstanceState.getBooleanArray("attemptResultsList");
+		boolean[] attArray = savedInstanceState
+				.getBooleanArray("attemptResultsList");
 		for (boolean b : attArray) {
 			attemptResultsList.add(b);
 		}
@@ -134,39 +144,42 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.button_picker_0:
-			case R.id.button_picker_1:
-			case R.id.button_picker_2:
-			case R.id.button_picker_3:
-			case R.id.button_picker_4:
-			case R.id.button_picker_5:
-			case R.id.button_picker_6:
-			case R.id.button_picker_7:
-			case R.id.button_picker_8:
-			case R.id.button_picker_9:
-				if (textAnswerNumber.getText().length() >= MAX_LENGTH_OF_ANSWER) {
-					break;
-				}
-				textAnswerNumber.setText(textAnswerNumber.getText() + v.getTag().toString());
+		case R.id.button_picker_0:
+		case R.id.button_picker_1:
+		case R.id.button_picker_2:
+		case R.id.button_picker_3:
+		case R.id.button_picker_4:
+		case R.id.button_picker_5:
+		case R.id.button_picker_6:
+		case R.id.button_picker_7:
+		case R.id.button_picker_8:
+		case R.id.button_picker_9:
+			if (textAnswerNumber.getText().length() >= MAX_LENGTH_OF_ANSWER) {
+				break;
+			}
+			textAnswerNumber.setText(textAnswerNumber.getText()
+					+ v.getTag().toString());
+			testAnswer();
+			break;
+		case R.id.button_clear_answer_left:
+		case R.id.button_clear_answer_right:
+			int textAnswerNumberLength = textAnswerNumber.getText().length();
+			if (textAnswerNumberLength <= 0) {
+				break;
+			}
+			textAnswerNumber.setText(textAnswerNumber.getText().subSequence(0,
+					textAnswerNumberLength - 1));
+			textAnswerNumberLength--;
+			if (textAnswerNumberLength > 0)
 				testAnswer();
-				break;
-			case R.id.button_clear_answer_left:
-			case R.id.button_clear_answer_right:
-				int textAnswerNumberLength = textAnswerNumber.getText().length();
-				if (textAnswerNumberLength <= 0) {
-					break;
-				}
-				textAnswerNumber.setText(textAnswerNumber.getText().subSequence(0, textAnswerNumberLength-1));
-				textAnswerNumberLength--;
-				if (textAnswerNumberLength > 0) testAnswer();
-				break;
-			case R.id.button_update:
-				generateExpression();
-				setButtonsEnabled(true);
-				break;
+			break;
+		case R.id.button_update:
+			generateExpression();
+			setButtonsEnabled(true);
+			break;
 		}
 	}
-	
+
 	/**
 	 * Tests the user answer
 	 */
@@ -187,55 +200,57 @@ public class MainActivity extends Activity implements OnClickListener {
 			Toast.makeText(this, "You're right!", Toast.LENGTH_SHORT).show();
 			setButtonsEnabled(false);
 			attemptResultsList.add(true);
-		// 2. They're not equal, but they have same number of digits => It's a WRONG answer!
-		} else if (userAnswerAsString.length() == expressionResult.toString().length()) {
-			Toast.makeText(this, "The right answer is " + expressionResult, Toast.LENGTH_LONG).show();
+			// 2. They're not equal, but they have same number of digits => It's
+			// a WRONG answer!
+		} else if (userAnswerAsString.length() == expressionResult.toString()
+				.length()) {
+			Toast.makeText(this, "The right answer is " + expressionResult,
+					Toast.LENGTH_LONG).show();
 			setButtonsEnabled(false);
 			attemptResultsList.add(false);
 		}
 
 		Log.d(TAG, "attempts: " + attemptResultsList);
 	}
-	
+
 	public void generateExpression() {
 		int operandA = generateRandomNumber(99);
 		int operandB = generateRandomNumber(99);
 		int operationNumber = (int) (Math.random() * 3); // without "division"
 		char operationSimbol = '?';
 		int result = 0;
-		
-		switch(operationNumber) {
-			case 0:
-				operationSimbol = '+';
-				result = operandA + operandB;
-				break;
-			case 1:
-				operationSimbol = '−';
-				if (operandB > operandA) {
-					int savedOperand = operandA;
-					operandA = operandB;
-					operandB = savedOperand;
-				}
-				result = operandA - operandB;
-				break;
-			case 2:
-				operationSimbol = '*';
-				operandB = generateRandomNumber(9);
-				result = operandA * operandB;
-				break;
-			/*case 3:
-				operationSimbol = '/';
-				result = operandA / operandB;
-				break;*/
+
+		switch (operationNumber) {
+		case 0:
+			operationSimbol = '+';
+			result = operandA + operandB;
+			break;
+		case 1:
+			operationSimbol = '−';
+			if (operandB > operandA) {
+				int savedOperand = operandA;
+				operandA = operandB;
+				operandB = savedOperand;
+			}
+			result = operandA - operandB;
+			break;
+		case 2:
+			operationSimbol = '*';
+			operandB = generateRandomNumber(9);
+			result = operandA * operandB;
+			break;
+		/*
+		 * case 3: operationSimbol = '/'; result = operandA / operandB; break;
+		 */
 		}
-		
+
 		textFirstNumber.setText(operandA + "");
 		textSecondNumber.setText(operandB + "");
 		textOperation.setText(operationSimbol + "");
 		textAnswerNumber.setText("");
 		expressionResult = result;
 	}
-	
+
 	public int generateRandomNumber(int maxValue) {
 		return (int) ((Math.random() * maxValue) + 1);
 	}
@@ -243,7 +258,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	/**
 	 * Sets the answer-input buttons enabled or disabled
 	 * 
-	 * @param enabled true or false
+	 * @param enabled
+	 *            true or false
 	 */
 	public void setButtonsEnabled(boolean enabled) {
 		buttonPicker0.setEnabled(enabled);
