@@ -28,6 +28,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private TextView textSecondNumber;
 	private TextView textOperation;
 
+	private TextView textProgress;
+
 	private Button buttonPicker0;
 	private Button buttonPicker1;
 	private Button buttonPicker2;
@@ -54,6 +56,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		textSecondNumber = (TextView) findViewById(R.id.text_second_number);
 		textOperation = (TextView) findViewById(R.id.text_operation);
 		textAnswerNumber = (TextView) findViewById(R.id.text_answer_number);
+
+		textProgress = (TextView) findViewById(R.id.text_progress);
 
 		buttonPicker0 = (Button) findViewById(R.id.button_picker_0);
 		buttonPicker0.setOnClickListener(this);
@@ -139,6 +143,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		for (boolean b : attArray) {
 			attemptResultsList.add(b);
 		}
+
+		updateProgress();
 	}
 
 	@Override
@@ -210,6 +216,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			attemptResultsList.add(false);
 		}
 
+		updateProgress();
 		Log.d(TAG, "attempts: " + attemptResultsList);
 	}
 
@@ -253,6 +260,17 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	public int generateRandomNumber(int maxValue) {
 		return (int) ((Math.random() * maxValue) + 1);
+	}
+
+	/**
+	 * Fills the progress bar with the last results.
+	 */
+	public void updateProgress() {
+		StringBuilder progrStr = new StringBuilder();
+		for (Boolean a : attemptResultsList) {
+			progrStr.append((a == true) ? 1 : 0);
+		}
+		textProgress.setText(progrStr);
 	}
 
 	/**
