@@ -7,5 +7,6 @@
 
     <!-- Custom values -->
     <dimen name="main_text_size">80sp</dimen>
+    <dimen name="x_button_padding">20sp</dimen>
 
 </resources>

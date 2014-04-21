@@ -53,6 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="="
+        android:textColor="@color/text_equals_sign"
         android:textSize="@dimen/main_text_size" />
 
     <LinearLayout
@@ -64,6 +65,7 @@
             android:id="@+id/button_clear_answer_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/x_button_padding"
             android:text="x" />
 
         <TextView
@@ -79,6 +81,7 @@
             android:id="@+id/button_clear_answer_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/x_button_padding"
             android:text="x" />
     </LinearLayout>
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="text_action_sign">#B3DDFF</color>
+    <color name="text_action_sign">#666666</color>
+    <color name="text_equals_sign">#666666</color>
 
 </resources>
