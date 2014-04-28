@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +53,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		expressionResult = null;
 		attemptResultsList = new ArrayList<Boolean>();
+		loadProgress();
 
 		textFirstNumber = (TextView) findViewById(R.id.text_first_number);
 		textSecondNumber = (TextView) findViewById(R.id.text_second_number);
@@ -89,6 +92,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		buttonClearAnswerRight.setOnClickListener(this);
 
 		generateExpression();
+	}
+
+	@Override
+	protected void onDestroy() {
+		saveProgress();
+		super.onDestroy();
 	}
 
 	@Override
@@ -292,5 +301,18 @@ public class MainActivity extends Activity implements OnClickListener {
 		buttonPicker9.setEnabled(enabled);
 		buttonClearAnswerLeft.setEnabled(enabled);
 		buttonClearAnswerRight.setEnabled(enabled);
+	}
+
+	public void saveProgress() {
+		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPref.edit();
+		editor.putString(getString(R.string.saved_attempts), attemptResultsList.toString());
+		editor.commit();
+	}
+
+	public void loadProgress() {
+		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+		String attStr = sharedPref.getString(getString(R.string.saved_attempts), "");
+		Toast.makeText(this, attStr, Toast.LENGTH_LONG).show();
 	}
 }
