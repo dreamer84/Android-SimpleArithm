@@ -6,4 +6,8 @@
     -->
     <dimen name="activity_horizontal_margin">220dp</dimen>
 
+    <!-- Custom values -->
+    <dimen name="main_text_size">160sp</dimen>
+    <dimen name="x_button_padding">40sp</dimen>
+
 </resources>

@@ -22,13 +22,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal" >
+        android:gravity="center_horizontal"
+        android:paddingBottom="18sp" >
 
         <TextView
             android:id="@+id/text_first_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5"
+            android:text="23"
             android:textSize="@dimen/main_text_size" />
 
         <TextView
@@ -45,16 +46,9 @@
             android:id="@+id/text_second_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="7"
+            android:text="3"
             android:textSize="@dimen/main_text_size" />
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="="
-        android:textColor="@color/text_equals_sign"
-        android:textSize="@dimen/main_text_size" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="35"
+            android:text="@string/sign_question"
             android:textSize="@dimen/main_text_size" />
 
         <Button
