@@ -9,7 +9,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,10 +48,15 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button buttonClearAnswerLeft;
 	private Button buttonClearAnswerRight;
 
+	DisplayMetrics displayMetrics;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		displayMetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
 		expressionResult = null;
 		attemptResultsList = new ArrayList<Boolean>();
@@ -212,15 +219,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		// 1. The answers are equals => It's a RIGHT answer!
 		if ((expressionResult != null) && (userAnswer == expressionResult)) {
 			textAnswerNumber.setTextColor(Color.rgb(5, 135, 0));
-			Toast.makeText(this, "You're right!", Toast.LENGTH_SHORT).show();
+			alert("You're right!");
 			setButtonsEnabled(false);
 			attemptResultsList.add(true);
 			// 2. They're not equal, but they have same number of digits => It's
 			// a WRONG answer!
 		} else if (userAnswerAsString.length() == expressionResult.toString()
 				.length()) {
-			Toast.makeText(this, "The right answer is " + expressionResult,
-					Toast.LENGTH_LONG).show();
+			alert("The right answer is " + expressionResult);
 			setButtonsEnabled(false);
 			attemptResultsList.add(false);
 		}
@@ -306,13 +312,30 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void saveProgress() {
 		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPref.edit();
-		editor.putString(getString(R.string.saved_attempts), attemptResultsList.toString());
+		editor.putString(getString(R.string.saved_attempts),
+				attemptResultsList.toString());
 		editor.commit();
 	}
 
 	public void loadProgress() {
 		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-		String attStr = sharedPref.getString(getString(R.string.saved_attempts), "");
-		Toast.makeText(this, attStr, Toast.LENGTH_LONG).show();
+		String attStr = sharedPref.getString(
+				getString(R.string.saved_attempts), "");
+		alert(attStr);
+	}
+
+	/**
+	 * Displays a text message using a Toast object at top-center position with
+	 * relative y-offset.
+	 * 
+	 * @param message
+	 */
+	public void alert(CharSequence message) {
+		int displayHeightPixels = displayMetrics.heightPixels;
+
+		Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.TOP | Gravity.CENTER, 0,
+				(int) (displayHeightPixels * 0.12));
+		toast.show();
 	}
 }
