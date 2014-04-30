@@ -2,7 +2,6 @@ package com.example.simplearithm;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,7 +24,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private Integer expressionResult;
 
-	private List<Boolean> attemptResultsList;
+	private List<Integer> attemptResultsList;
 
 	private TextView textAnswerNumber;
 	private TextView textFirstNumber;
@@ -59,7 +58,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
 		expressionResult = null;
-		attemptResultsList = new ArrayList<Boolean>();
+
+		attemptResultsList = new ArrayList<Integer>();
 		loadProgress();
 
 		textFirstNumber = (TextView) findViewById(R.id.text_first_number);
@@ -99,6 +99,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		buttonClearAnswerRight.setOnClickListener(this);
 
 		generateExpression();
+
+		updateProgress();
 	}
 
 	@Override
@@ -116,6 +118,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+
 		if (outState == null) {
 			return;
 		}
@@ -128,19 +131,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		outState.putString("expressionResult", expressionResult.toString());
 
 		// Saves the attempts
-		int attCount = attemptResultsList.size();
-		boolean[] attArray = new boolean[attCount];
-		int c = 0;
-		ListIterator<Boolean> li = attemptResultsList.listIterator(attCount);
-		while (li.hasPrevious()) {
-			attArray[c++] = li.previous();
-		}
-		outState.putBooleanArray("attemptResultsList", attArray);
+		outState.putString("attemptResultsList",
+				attemptsToString(attemptResultsList));
+
+		Log.d(TAG, "onSaveInstanceState(): " + attemptResultsList.toString());
 	}
 
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
+
 		if (savedInstanceState == null) {
 			return;
 		}
@@ -154,13 +154,12 @@ public class MainActivity extends Activity implements OnClickListener {
 				.getString("expressionResult"));
 
 		// Restores the attempts
-		boolean[] attArray = savedInstanceState
-				.getBooleanArray("attemptResultsList");
-		for (boolean b : attArray) {
-			attemptResultsList.add(b);
-		}
+		String attString = savedInstanceState.getString("attemptResultsList");
+		attemptResultsList = attemptsToList(attString);
 
 		updateProgress();
+
+		Log.d(TAG, "onSaveInstanceState(): " + attemptResultsList.toString());
 	}
 
 	@Override
@@ -221,17 +220,18 @@ public class MainActivity extends Activity implements OnClickListener {
 			textAnswerNumber.setTextColor(Color.rgb(5, 135, 0));
 			alert("You're right!");
 			setButtonsEnabled(false);
-			attemptResultsList.add(true);
+			attemptResultsList.add(1);
 			// 2. They're not equal, but they have same number of digits => It's
 			// a WRONG answer!
 		} else if (userAnswerAsString.length() == expressionResult.toString()
 				.length()) {
 			alert("The right answer is " + expressionResult);
 			setButtonsEnabled(false);
-			attemptResultsList.add(false);
+			attemptResultsList.add(0);
 		}
 
 		updateProgress();
+
 		Log.d(TAG, "attempts: " + attemptResultsList);
 	}
 
@@ -281,11 +281,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	 * Fills the progress bar with the last results.
 	 */
 	public void updateProgress() {
-		StringBuilder progrStr = new StringBuilder();
-		for (Boolean a : attemptResultsList) {
-			progrStr.append((a == true) ? 1 : 0);
-		}
-		textProgress.setText(progrStr);
+		textProgress.setText(attemptsToString(attemptResultsList));
 	}
 
 	/**
@@ -313,15 +309,20 @@ public class MainActivity extends Activity implements OnClickListener {
 		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPref.edit();
 		editor.putString(getString(R.string.saved_attempts),
-				attemptResultsList.toString());
+				attemptsToString(attemptResultsList));
 		editor.commit();
+
+		Log.d(TAG, "saveProgress(): " + attemptResultsList.toString());
 	}
 
 	public void loadProgress() {
 		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
 		String attStr = sharedPref.getString(
 				getString(R.string.saved_attempts), "");
-		alert(attStr);
+
+		attemptResultsList = attemptsToList(attStr);
+
+		Log.d(TAG, "loadProgress(): " + attemptResultsList.toString());
 	}
 
 	/**
@@ -337,5 +338,22 @@ public class MainActivity extends Activity implements OnClickListener {
 		toast.setGravity(Gravity.TOP | Gravity.CENTER, 0,
 				(int) (displayHeightPixels * 0.12));
 		toast.show();
+	}
+
+	public String attemptsToString(List<Integer> attempts) {
+		StringBuilder attString = new StringBuilder();
+		for (Integer a : attempts) {
+			attString.append(a);
+		}
+		return attString.toString();
+	}
+
+	public List<Integer> attemptsToList(String attempts) {
+		List<Integer> attList = new ArrayList<Integer>();
+		for (int i = 0; i < attempts.length(); i++) {
+			attList.add((attempts.charAt(i) == '1') ? 1 : 0);
+		}
+
+		return attList;
 	}
 }
