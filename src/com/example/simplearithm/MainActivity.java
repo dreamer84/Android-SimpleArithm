@@ -341,6 +341,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	public String attemptsToString(List<Integer> attempts) {
+		if (attempts == null) {
+			return "";
+		}
+
 		StringBuilder attString = new StringBuilder();
 		for (Integer a : attempts) {
 			attString.append(a);
