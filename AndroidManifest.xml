@@ -23,7 +23,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.simplearithm.SettingsActivity"></activity>
+        <activity android:name="com.example.simplearithm.SettingsActivityForHandset"></activity>
+        <activity android:name="com.example.simplearithm.SettingsActivityForTablet"></activity>
 
     </application>
 
